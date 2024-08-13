@@ -1,0 +1,153 @@
+!- Windows Line endings 
+
+Version,
+    22.2;                     !- Version Identifier
+
+SimulationControl,
+    Yes,                      !- Do Zone Sizing Calculation
+    Yes,                       !- Do System Sizing Calculation
+    Yes,                       !- Do Plant Sizing Calculation
+    Yes,                      !- Run Simulation for Sizing Periods
+    Yes,                      !- Run Simulation for Weather File Run Periods
+    Yes,                      !- Do HVAC Sizing Simulation for Sizing Periods
+    1;                        !- Maximum Number of HVAC Sizing Simulation Passes
+
+Timestep,
+    4;                        !- Number of Timesteps per Hour
+
+Site:Location,
+    Amsterdam_Netherlands,    !- Name
+    52.37,                    !- Latitude
+    4.89,                     !- Longitude
+    1,                        !- Time Zone
+    -2;                       !- Elevation
+
+SizingPeriod:DesignDay,
+    Netherlands Ann Htg 99.6% Condns DB,    !- Name
+    1,                        !- Month
+    21,                       !- Day of Month
+    WinterDesignDay,          !- Day Type
+    -5,                       !- Maximum DryBulb Temperature
+    0,                        !- Daily DryBulb Temperature Range
+    ,                         !- DryBulb Temperature Range Modifier Type
+    ,                         !- DryBulb Temperature Range Modifier Day Schedule Name
+    Wetbulb,                  !- Humidity Condition Type
+    -5,                       !- Wetbulb or DewPoint at Maximum DryBulb
+    ,                         !- Humidity Condition Day Schedule Name
+    ,                         !- Humidity Ratio at Maximum DryBulb
+    ,                         !- Enthalpy at Maximum DryBulb
+    ,                         !- Daily WetBulb Temperature Range
+    102000,                   !- Barometric Pressure
+    4,                        !- Wind Speed
+    270,                      !- Wind Direction
+    No,                       !- Rain Indicator
+    No,                       !- Snow Indicator
+    No,                       !- Daylight Saving Time Indicator
+    ASHRAEClearSky,           !- Solar Model Indicator
+    ,                         !- Beam Solar Day Schedule Name
+    ,                         !- Diffuse Solar Day Schedule Name
+    ,                         !- ASHRAE Clear Sky Optical Depth for Beam Irradiance taub
+    ,                         !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance taud
+    0;                        !- Sky Clearness
+
+SizingPeriod:DesignDay,
+    Netherlands Ann Clg 1% Condns DB=>MWB,    !- Name
+    7,                        !- Month
+    21,                       !- Day of Month
+    SummerDesignDay,          !- Day Type
+    28,                       !- Maximum DryBulb Temperature
+    10,                       !- Daily DryBulb Temperature Range
+    ,                         !- DryBulb Temperature Range Modifier Type
+    ,                         !- DryBulb Temperature Range Modifier Day Schedule Name
+    Wetbulb,                  !- Humidity Condition Type
+    17,                       !- Wetbulb or DewPoint at Maximum DryBulb
+    ,                         !- Humidity Condition Day Schedule Name
+    ,                         !- Humidity Ratio at Maximum DryBulb
+    ,                         !- Enthalpy at Maximum DryBulb
+    ,                         !- Daily WetBulb Temperature Range
+    102000,                   !- Barometric Pressure
+    3.5,                      !- Wind Speed
+    90,                       !- Wind Direction
+    No,                       !- Rain Indicator
+    No,                       !- Snow Indicator
+    No,                       !- Daylight Saving Time Indicator
+    ASHRAEClearSky,           !- Solar Model Indicator
+    ,                         !- Beam Solar Day Schedule Name
+    ,                         !- Diffuse Solar Day Schedule Name
+    ,                         !- ASHRAE Clear Sky Optical Depth for Beam Irradiance taub
+    ,                         !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance taud
+    1;                        !- Sky Clearness
+
+RunPeriod,
+    Run Period 1,             !- Name
+    1,                        !- Begin Month
+    1,                        !- Begin Day of Month
+    ,                         !- Begin Year
+    12,                       !- End Month
+    31,                       !- End Day of Month
+    ,                         !- End Year
+    Tuesday,                  !- Day of Week for Start Day
+    Yes,                      !- Use Weather File Holidays and Special Days
+    Yes,                      !- Use Weather File Daylight Saving Period
+    No,                       !- Apply Weekend Holiday Rule
+    Yes,                      !- Use Weather File Rain Indicators
+    Yes;                      !- Use Weather File Snow Indicators
+
+GlobalGeometryRules,
+    UpperLeftCorner,          !- Starting Vertex Position
+    CounterClockWise,         !- Vertex Entry Direction
+    Relative;                 !- Coordinate System
+
+Output:VariableDictionary,
+    Regular;                  !- Key Field
+
+Output:Table:SummaryReports,
+    AllSummary;               !- Report 1 Name
+
+OutputControl:Table:Style,
+    HTML;                     !- Column Separator
+
+Output:Variable,
+    *,                        !- Key Value
+    Site Outdoor Air Drybulb Temperature,    !- Variable Name
+    Timestep;                 !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Site Outdoor Air Wetbulb Temperature,    !- Variable Name
+    Timestep;                 !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Site Outdoor Air Dewpoint Temperature,    !- Variable Name
+    Timestep;                 !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Site Solar Azimuth Angle,    !- Variable Name
+    Timestep;                 !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Site Solar Altitude Angle,    !- Variable Name
+    Timestep;                 !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Site Direct Solar Radiation Rate per Area,    !- Variable Name
+    Timestep;                 !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Site Diffuse Solar Radiation Rate per Area,    !- Variable Name
+    Timestep;                 !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Boiler Heating Energy,    !- Variable Name 
+    Timestep;                 !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Water Heater Heating Energy,  !- Variable Name 
+    Timestep;                 !- Reporting Frequency

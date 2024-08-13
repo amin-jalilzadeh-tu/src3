@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  app:
+    env_file:
+      - .env
+    build: .
+    volumes:
+      - ./data:/app/data  
+      - ./output:/app/output
+      - ./data/weather:/app/data/weather
+
+    ports:
+      - "8000:5000"
+    environment:
+      IDDFILE: "/usr/local/EnergyPlus-22.2.0-c249759bad-Linux-Ubuntu20.04-x86_64/Energy+.idd"
+      IDFFILE: "/app/data/Minimal.idf"
+     
+      EPWFILE: "/app/data/weather/NLD_Amsterdam.062400_IWEC.epw"  
+      OUTPUT_DIR: "/app/output" # ${OUTPUT_DIR}  
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      ENERGYPLUS_VERSION: 22.2.0
+      ENERGYPLUS_INSTALLATION_DIR: ${ENERGYPLUS_INSTALLATION_DIR}
+
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+volumes:
+  postgres_data:
+
+
+ # "/usr/local/EnergyPlus-22.2.0-c249759bad-Linux-Ubuntu20.04-x86_64/ExampleFiles/Minimal.idf"
